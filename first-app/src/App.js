@@ -18,8 +18,14 @@ function App() {
 }
 
 function Button1() {
-  let [counter, setCounter] = useState(0);
-  return <button onClick={() => setCounter(counter+1)}>{counter}</button>;
+  const [counter, setCounter] = useState(0);
+  const handleClick1 = () => setCounter(counter+1);
+
+  return (
+    <button onClick={handleClick1}>
+      {counter}
+    </button>
+  );
 }
 
 reactDom.render(
@@ -28,8 +34,14 @@ reactDom.render(
 );
 
 function Button2() {
-  let [counter, setCounter] = useState(5);
-  return <button onClick={() => setCounter(counter*2)}>{counter}</button>;
+  const [counter, setCounter] = useState(5);
+  const handleClick2 = () => setCounter(counter*2);
+
+  return (
+    <button onClick={handleClick2}>
+      {counter}
+    </button>
+  );
 }
 
 reactDom.render(
