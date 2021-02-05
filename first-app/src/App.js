@@ -17,36 +17,45 @@ function App() {
   );
 }
 
-function Button1() {
-  const [counter, setCounter] = useState(0);
-  const handleClick1 = () => setCounter(counter+1);
-
+function Button(props) {
   return (
-    <button onClick={handleClick1}>
-      {counter}
+    <button onClick={props.onClickFunction}>
+      +1
     </button>
   );
 }
 
+function Reset(props) {
+  return (
+    <button onClick={props.resetValue}>
+      Reset
+    </button>
+  );
+}
+
+function Display(props) {
+  return (
+    <div>{props.message}</div>
+  );
+}
+
+function Application() {
+  const [counter, setCounter] = useState(2021);
+  const incrementCounter = () => setCounter(counter+1);
+  const origin = () => setCounter(2021);
+  
+  return (
+    <div>
+      <Button onClickFunction={incrementCounter}/>
+      <Reset resetValue={origin}/>
+      <Display message={counter}/>
+    </div>
+  );
+}
+
 reactDom.render(
-  <Button1 />,
+  <Application />,
   document.getElementById('ele1')
-);
-
-function Button2() {
-  const [counter, setCounter] = useState(5);
-  const handleClick2 = () => setCounter(counter*2);
-
-  return (
-    <button onClick={handleClick2}>
-      {counter}
-    </button>
-  );
-}
-
-reactDom.render(
-  <Button2 />,
-  document.getElementById('ele2')
 );
 
 export default App;
