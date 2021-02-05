@@ -9,18 +9,25 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
 
-        <h1 id="ele1">Welcome sir Hosam</h1>
-        <h1 id="ele2">Access granted</h1>
+        <h1 id="ele">Counter</h1>
 
       </header>
     </div>
   );
 }
 
-function Button(props) {
+function Plus(props) {
   return (
-    <button onClick={props.onClickFunction}>
+    <button onClick={props.onClickFunctionPlus}>
       +1
+    </button>
+  );
+}
+
+function Minus(props) {
+  return (
+    <button onClick={props.onClickFunctionMinus}>
+      -1
     </button>
   );
 }
@@ -42,11 +49,13 @@ function Display(props) {
 function Application() {
   const [counter, setCounter] = useState(2021);
   const incrementCounter = () => setCounter(counter+1);
+  const decrementCounter = () => setCounter(counter-1);
   const origin = () => setCounter(2021);
   
   return (
     <div>
-      <Button onClickFunction={incrementCounter}/>
+      <Plus onClickFunctionPlus={incrementCounter}/>
+      <Minus onClickFunctionMinus={decrementCounter}/>
       <Reset resetValue={origin}/>
       <Display message={counter}/>
     </div>
@@ -55,7 +64,7 @@ function Application() {
 
 reactDom.render(
   <Application />,
-  document.getElementById('ele1')
+  document.getElementById('ele')
 );
 
 export default App;
