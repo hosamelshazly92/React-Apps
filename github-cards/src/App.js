@@ -3,22 +3,6 @@ import './App.css';
 import reactDom from 'react-dom';
 import React from 'react';
 
-// test data
-const testData = [
-  {
-    name: "Hosam Elshazly",
-    bio: "UX/UI Designer",
-    location: "Egypt",
-    avatar_url: "https://avatars.githubusercontent.com/u/59311235?v=4"
-  },
-  {
-    name: "Dan Abramov",
-    bio: "Developer",
-    location: null,
-    avatar_url: "https://avatars.githubusercontent.com/u/810438?v=4"
-  }
-];
-
 // card class component
 class Card extends React.Component {
   render() {
@@ -29,7 +13,7 @@ class Card extends React.Component {
         <img src={profile.avatar_url} style={{ height: '75px' }}></img>
         <div className="info" style={{ display: 'inline-block', textAlign: 'left', marginLeft: '10px' }}>
           <div style={{ fontSize: '18px', fontWeight: 'bold' }}>{profile.name}</div>
-          <div style={{ fontSize: '12px' }}>{profile.bio}</div>
+          <div style={{ fontSize: '12px' }}>{profile.company}</div>
           <div style={{ fontSize: '12px' }}>{profile.location}</div>
         </div>
       </div>
@@ -41,17 +25,35 @@ class Card extends React.Component {
 const CardList = (props) => {
   return (
     <div>
-      {testData.map(profile => <Card {...profile}/>)}
+      {props.profiles.map(profile => <Card key={profile.id} {...profile}/>)}
     </div>
   );
 }
 
 // form class component
 class Form extends React.Component {
+  state = { userName: ''};
+  handleSubmit = (event) => {
+    event.preventDefault();
+    fetch(`https://api.github.com/users/${this.state.userName}`)
+      .then(response => response.json())
+      .then(data => {
+        this.props.onSubmit(data);
+        this.setState({ userName: '' });
+        // console.log(data);
+    });
+  };
+
   render() {
     return (
-      <form>
-        <input type="text" placeholder="Enter GitHub Usermane...." />
+      <form onSubmit={this.handleSubmit}>
+        <input 
+          type="text"
+          placeholder="Enter GitHub Usermane...."
+          value={this.state.userName}
+          onChange={event => this.setState({ userName: event.target.value })}
+          required
+        />
         <button>Add New Card</button>
       </form>
     );
@@ -61,13 +63,28 @@ class Form extends React.Component {
 // App class component
 class App extends React.Component {
   // constructor
-  // this
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     profiles: testData
+  //   };
+  // }
+  state = {
+    profiles: []
+  };
+
+  addNewProfile = (profileData) => {
+    this.setState(prevState => ({
+      profiles: [...prevState.profiles, profileData]
+    }));
+  };
+
   render() {
     return (
       <div className="App">
-        <h1 className="header">{this.props.title}</h1>
-        <Form />
-        <CardList />
+        <Heading title="GitHub Cards App" />
+        <Form onSubmit={this.addNewProfile}/>
+        <CardList profiles={this.state.profiles}/>
       </div>
     );
   }
@@ -82,8 +99,15 @@ class App extends React.Component {
 //   );
 // }
 
+// Heading function component
+const Heading = ({title}) => {
+  return (
+      <h1>{title}</h1>
+  );
+}
+
 reactDom.render(
-  <App title="GitHub Cards App"/>,
+  <App />,
   document.getElementById('root')
 );
 
