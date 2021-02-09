@@ -3,7 +3,7 @@ import './App.css';
 import reactDom from 'react-dom';
 import React from 'react';
 
-// card component
+// card class component
 class Card extends React.Component {
   render() {
     return (
@@ -18,6 +18,15 @@ class Card extends React.Component {
   }
 }
 
+// car list class component
+const CardList = (props) => {
+  return (
+    <div>
+      <Card />
+    </div>
+  );
+}
+
 // App class component
 class App extends React.Component {
   // constructor
@@ -26,7 +35,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1 className="header">{this.props.title}</h1>
-        <Card />
+        <CardList />
       </div>
     );
   }
