@@ -1,14 +1,14 @@
 import Button from './Button.js';
 
-const Header = ({title}) => {
-    const onClick = (e) => {
-        // console.log(`X Psition: ${e.pageX}, Y Position: ${e.pageY}`);
-    }
-
+const Header = ({title, onCreate, showAdd}) => {
     return (
         <header className='header'>
             <h1>{title}</h1>
-            <Button color='green' text='Add' onClick={onClick}/>
+            <Button 
+                color={showAdd ? 'red' : 'green'}
+                text={showAdd ? 'Close' : 'Add'} 
+                onClick={onCreate} 
+            />
         </header>
     )
 }
