@@ -24,11 +24,16 @@ function App() {
     }
   ];
 
+  // delete task
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  }
+
   const [tasks, setTasks] = useState(data);
   return (
     <div className="container">
       <Header title='Task Tracker App' />
-      <Tasks tasks={tasks}/>
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask}/> : "No tasks to display"}
     </div>
   );
 }
