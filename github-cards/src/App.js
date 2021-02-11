@@ -106,9 +106,4 @@ const Heading = ({title}) => {
   );
 }
 
-reactDom.render(
-  <App />,
-  document.getElementById('root')
-);
-
 export default App;

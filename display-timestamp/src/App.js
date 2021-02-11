@@ -29,13 +29,6 @@ function CreateNewElement() {
   );
 }
 
-const render = () => {
-  ReactDOM.render(
-    <App />,
-    document.getElementById('root')
-  );
-}
-
 setInterval(render, 1000);
 
 export default App;
