@@ -2,7 +2,7 @@ import Button from './Button.js';
 
 const Header = ({title}) => {
     const onClick = (e) => {
-        console.log(`X Psition: ${e.pageX}, Y Position: ${e.pageY}`);
+        // console.log(`X Psition: ${e.pageX}, Y Position: ${e.pageY}`);
     }
 
     return (
